@@ -15,14 +15,12 @@ function part1(): void {
 }
 
 function getWaysToBeat(raceTime: number, raceRecord: number): number {
-    let waysToBeat = 0;
-    for (let speed = 0; speed <= raceTime; speed += 1) {
-        const distanceTraveled = speed * (raceTime - speed);
-        if (distanceTraveled > raceRecord) {
-            waysToBeat += 1;
-        }
-    }
-    return waysToBeat;
+    const delta = raceTime * raceTime - 4 * raceRecord;
+    const sqrt = Math.sqrt(delta);
+    const [t1, t2] = [(-raceTime + sqrt) / -2, (-raceTime - sqrt) / -2]
+    const [start, end] = [Math.min(t1, t2), Math.max(t1, t2)];
+
+    return Math.floor(end - 0.0001) - Math.ceil(start + 0.0001) + 1;
 }
 
 function part2(): void {
